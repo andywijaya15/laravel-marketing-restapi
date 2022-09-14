@@ -85,7 +85,7 @@ class KotaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  string  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -94,6 +94,6 @@ class KotaController extends Controller
         $kota = Kota::destroy($id);
 
         //return collection as a resource
-        return new KotaResource($kota);
+        return $kota ? new ResponseResource(true, 'Data Kota Berhasil Dihapus!', $kota) : new ResponseResource(true, 'Gagal Menghapus Kota!', $kota);
     }
 }
