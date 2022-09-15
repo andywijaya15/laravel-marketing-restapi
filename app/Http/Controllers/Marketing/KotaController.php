@@ -40,11 +40,11 @@ class KotaController extends Controller
             'propinsi' => strtoupper($request->propinsi)
         ]);
 
-        return $kota ? new ResponseResource(true, 'Data Kota Berhasil Ditambahkan!', $kota) : new ResponseResource(true, 'Gagal Menambahkan Kota!', $kota);
+        new ResponseResource(true, 'Data Kota Berhasil Ditambahkan!', $kota);
     }
 
     /**
-     * Makes idkota
+     * Make idkota
      *
      * @param  string  $nama_kota
      * @return idkota
@@ -64,9 +64,7 @@ class KotaController extends Controller
      */
     public function show($id)
     {
-        //get kota
         $kota = Kota::findOrFail($id);
-        //return collection as a resource
         return new KotaResource($kota);
     }
 
@@ -77,9 +75,8 @@ class KotaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(KotaRequest $request, $id)
     {
-        //
     }
 
     /**
@@ -90,10 +87,7 @@ class KotaController extends Controller
      */
     public function destroy($id)
     {
-        //get kota
         $kota = Kota::destroy($id);
-
-        //return collection as a resource
-        return $kota ? new ResponseResource(true, 'Data Kota Berhasil Dihapus!', $kota) : new ResponseResource(true, 'Gagal Menghapus Kota!', $kota);
+        new ResponseResource(true, 'Data Kota Berhasil Dihapus!', $kota);
     }
 }
