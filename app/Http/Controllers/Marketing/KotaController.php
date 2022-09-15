@@ -53,7 +53,7 @@ class KotaController extends Controller
     {
         $firstWord = substr(strtoupper($nama_kota), 0, 1);
         $kota = Kota::selectRaw("MAX(SUBSTR(idkota,2)) AS maxkota")->where(DB::raw("SUBSTR(idkota,1,1)"), $firstWord)->limit(1)->get('maxkota');
-        return $firstWord . (int)$kota[0]->maxkota + 1;
+        return $firstWord . sprintf("%02s", (int)$kota[0]->maxkota + 1);
     }
 
     /**
