@@ -24,9 +24,8 @@ class KotaRequest extends FormRequest
     public function rules()
     {
         return [
-            'idkota' => 'unique:m_kota,idkota',
-            'nama_kota' => 'required|min:3|max:50|unique:m_kota,kota',
-            'propinsi' => 'required|min:5|max:50',
+            'nama_kota' => 'required|min:3|max:50|unique:m_kota,nama',
+            'propinsi' => 'required|min:4|max:50',
         ];
     }
 }

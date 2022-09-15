@@ -14,12 +14,12 @@ class KotaResource extends JsonResource
      */
     public function toArray($request)
     {
-        // return parent::toArray($request);
-        return [
-            'id' => $this->idkota,
-            'nama_kota' => $this->kota,
-            'nama_propinsi' => $this->propinsi
-        ];
+        return parent::toArray($request);
+        // return [
+        //     'id' => $this->idkota,
+        //     'nama_kota' => $this->kota,
+        //     'nama_propinsi' => $this->propinsi
+        // ];
     }
 
     public function with($request)

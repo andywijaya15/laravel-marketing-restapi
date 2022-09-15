@@ -35,25 +35,12 @@ class KotaController extends Controller
     public function store(KotaRequest $request)
     {
         $kota = Kota::create([
-            'idkota' => $this->makeid($request->nama_kota),
-            'kota' => strtoupper($request->nama_kota),
+            'kota_id' => $this->makeid($request->nama_kota),
+            'nama' => strtoupper($request->nama_kota),
             'propinsi' => strtoupper($request->propinsi)
         ]);
 
-        new ResponseResource(true, 'Data Kota Berhasil Ditambahkan!', $kota);
-    }
-
-    /**
-     * Make idkota
-     *
-     * @param  string  $nama_kota
-     * @return idkota
-     */
-    protected function makeid($nama_kota)
-    {
-        $firstWord = substr(strtoupper($nama_kota), 0, 1);
-        $kota = Kota::selectRaw("MAX(SUBSTR(idkota,2)) AS maxkota")->where(DB::raw("SUBSTR(idkota,1,1)"), $firstWord)->limit(1)->get('maxkota');
-        return $firstWord . sprintf("%02s", (int)$kota[0]->maxkota + 1);
+        return new ResponseResource(true, 'Data Kota Berhasil Ditambahkan!', $kota);
     }
 
     /**
@@ -62,10 +49,9 @@ class KotaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Kota $kota_id)
     {
-        $kota = Kota::findOrFail($id);
-        return new KotaResource($kota);
+        return new KotaResource($kota_id);
     }
 
     /**
@@ -75,8 +61,9 @@ class KotaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(KotaRequest $request, $id)
+    public function update(Request $request, Kota $kota)
     {
+        return $kota;
     }
 
     /**
@@ -89,5 +76,18 @@ class KotaController extends Controller
     {
         $kota = Kota::destroy($id);
         new ResponseResource(true, 'Data Kota Berhasil Dihapus!', $kota);
+    }
+
+    /**
+     * Make idkota
+     *
+     * @param  string  $nama_kota
+     * @return idkota
+     */
+    protected function makeid($nama_kota)
+    {
+        $firstWord = substr(strtoupper($nama_kota), 0, 1);
+        $kota = Kota::selectRaw("MAX(SUBSTR(kota_id,2)) AS maxkota")->where(DB::raw("SUBSTR(kota_id,1,1)"), $firstWord)->limit(1)->get('maxkota');
+        return $firstWord . sprintf("%02s", (int)$kota[0]->maxkota + 1);
     }
 }

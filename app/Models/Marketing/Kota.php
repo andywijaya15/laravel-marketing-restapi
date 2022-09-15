@@ -16,37 +16,10 @@ class Kota extends Model
      */
     protected $table = 'm_kota';
 
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
+    protected $fillable = ['kota_id', 'nama', 'propinsi'];
 
-    /**
-     * The primary key associated with the table.
-     *
-     * @var string
-     */
-    protected $primaryKey = 'idkota';
-
-    /**
-     * Indicates if the model's ID is auto-incrementing.
-     *
-     * @var bool
-     */
-    public $incrementing = false;
-
-    /**
-     * The data type of the auto-incrementing ID.
-     *
-     * @var string
-     */
-    protected $keyType = 'string';
-
-    protected $fillable = [
-        'idkota',
-        'kota',
-        'propinsi',
-    ];
+    public function getRouteKeyName()
+    {
+        return 'kota_id';
+    }
 }
